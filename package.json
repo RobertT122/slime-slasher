@@ -1,0 +1,39 @@
+{
+  "browserslist": [
+    "defaults"
+  ],
+  "name": "slime-slasher",
+  "version": "1.0.0",
+  "description": "Slime Slasher is a simple dexterity game where the player must choose the correct attack to defeat the enemy in a limited time. It has the astethic of a turn-based jrpg (Pokemon-like for the uninitiated). Here is an example of the gameplay loop:  - A  green slime (an enemy) apears on the screen! - A timer is started - You click one of three attacks (red, green, or blue) - If you clicked red you Defeated the Slime!    - You recieve Gold (plus a bonus for remaining time on the clock!)   - A new Slime of a Random Color is loaded in and the timer resets - If you choose the wrong attack (blue or green) or miss the time, its the slimes turn!   - Slime will take one of your lives and you will then have another chance to attack.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --watch --mode=development",
+    "build": "webpack --mode=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertT122/slime-slasher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertT122/slime-slasher/issues"
+  },
+  "homepage": "https://github.com/RobertT122/slime-slasher#readme",
+  "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-loader": "^8.2.3",
+    "core-js": "^3.19.0",
+    "css-loader": "^6.5.0",
+    "mini-css-extract-plugin": "^2.4.3",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1"
+  }
+  
+}

@@ -33,7 +33,7 @@ In addition, this project will include:
 
 ## Wireframe
 
-<img src='SampleGreen.png' width= 360>
+<img src='Screenshots/SampleGreen.png' width= 360>
 <br>
 
 *Not finalized Assets*
@@ -52,9 +52,10 @@ Above the dashboard are the **hearts** displaying your remaining life.
 
 In the top right corner of the dashboard is the **lightbulb-icon** that will give you information about the current enemy when you see it for the first time.
 
-<br>
-<img src='SampleRed.png' width= 180>
-<img src='SampleBlue.png' width= 180>
+<div>
+<img src='Screenshots/SampleRed.png' width= 180>
+<img src='Screenshots/SampleBlue.png' width= 180>
+<div>
 
 *Above are alternate enemy sprites*
 
