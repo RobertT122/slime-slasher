@@ -11,7 +11,7 @@ Slime Slasher is a simple dexterity game where the player must choose the correc
 - If you choose the wrong attack (blue or green) or miss the time, its the slimes turn!
   - Slime will take one of your lives and you will then have another chance to attack.
 
-As the game progresses the timer will get shorter and new Enemy types will appear. The types work in a rock-paper-scissors style (<span style="color:red">red</span>  → 
+As the game progresses the timer will get shorter and new Enemy types will appear. The types work in a rock-paper-scissors style (<div style="color:red">red</div>  → 
 <span style="color:limegreen">green</span>  → 
 <span style="color:skyblue">blue</span>  → 
 <span style="color:red">red</span>). When your life total reaches 0 the game ends. Your score is equal to the amount of gold you recieved. See how far you can get before being defeated by the slimes!
