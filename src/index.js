@@ -1,7 +1,7 @@
 import Example from './scripts/Example.js'
 import Attack from './scripts/attack.js'
 import Player from './scripts/player.js'
-import BasicEnemy from './scripts/enemy.js'
+import Enemy from './scripts/enemy.js'
 
 window.Attack = Attack;
 window.Player = Player;
