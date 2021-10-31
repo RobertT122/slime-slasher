@@ -12,12 +12,17 @@ class Timer {
   countdown(){
     let that = this;
     const interval = setInterval(()=>{
-      if (that.time === 0 || that.paused) {
+      if (this.isDone() || that.paused) {
         clearInterval(interval);
       }
       that.render.call(that);
       that.time= that.time - 1;
     }, 1000)
+  }
+
+  finishEarly(){
+    this.pause = true;
+    return Math.ceil(this.time);
   }
 
   isDone(){
@@ -26,6 +31,6 @@ class Timer {
     }
     return true;
   }
-
-  
 }
+
+export default Timer;

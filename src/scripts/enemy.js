@@ -1,4 +1,4 @@
-import Player from "./Player"
+import Player from "./player"
 
 class Enemy{
   constructor(prototype) {
@@ -8,7 +8,7 @@ class Enemy{
     this.resists = prototype.resists;
     this.life = prototype.life || 6;
     //responses must take the player as an argument
-    this.response = prototype.response || Enemy.attack;
+    this.response = prototype.response || this.attack;
     this.render();
   }
 
@@ -38,8 +38,9 @@ class Enemy{
   }
   
   render(){
-    //renders the enemy on Screen
-    // grabs the sprite matching the name of the enemy.
+    // grabs the sprite matching the name of the enemy
+    // creates the enemy element offscreen
+    // animates into correct position
   }
 
   animateAttck(){
@@ -56,15 +57,15 @@ class Enemy{
   
   
   static generateNewEnemy(){
-    let pIdx = Math.floor(Math.random * Enemy.prototypes.length);
-    let prototype = Enemy.prototypes[pIdx];
+    let pIdx = Math.floor(Math.random() * Enemy.activePrototypes.length);
+    let prototype = Enemy.activePrototypes[pIdx];
     return new Enemy(prototype);
   }
   //
 
 
 //Add enemy Prototypes here
-  static prototypes = [
+  static activePrototypes = [
     {
       name: "RedSlime",
       description: "A red slime",
@@ -88,5 +89,3 @@ class Enemy{
 }
 
 export default Enemy
-
-

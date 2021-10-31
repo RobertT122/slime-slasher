@@ -1,11 +1,11 @@
-import Example from './scripts/Example.js'
-import Attack from './scripts/attack.js'
-import Player from './scripts/player.js'
+import Game from './scripts/game.js'
+import Example from './scripts/example.js'
 import Enemy from './scripts/enemy.js'
 
-window.Attack = Attack;
-window.Player = Player;
-window.BasicEnemy = BasicEnemy;
+// window.Attack = Attack;
+// window.Player = Player;
+window.Enemy = Enemy;
+window.Game = Game;
 
 window.addEventListener("DOMContentLoaded", () =>{
   let ele = document.getElementById("example")

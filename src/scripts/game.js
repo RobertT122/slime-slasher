@@ -1,19 +1,24 @@
-import Attack from './scripts/attack.js'
-import Player from './scripts/player.js'
-import Enemy from './scripts/enemy.js'
+import AttackButton from './attack_button.js'
+import Player from './player.js'
+import Enemy from './enemy.js'
+import GameView from './game_view.js';
+import Timer from './timer.js';
+
+//handle game logic and interactions between classes
 
 class Game {
   constructor() {
     this.player = new Player();
-    this.timer
+    this.currentTimer = new Timer(30);
+    this.gameView = new GameView();
+    this.currentEnemy = Enemy.generateNewEnemy();
   }
 
-  renderMenu(){
-    //clears screen
-    //renders the main menu
+  turn(){
+
   }
-  renderGame(){
-    //clears screen
-    //renders the game board
-  }
+
+
 }
+
+export default Game;
