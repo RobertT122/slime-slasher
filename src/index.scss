@@ -1,1 +1,13 @@
 @import url("styles/reset.scss");
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+#canvas1 {
+  display: block;
+  font-family: "Press Start 2P", cursive;
+}
+
+.test {
+  font-size: 80px;
+  font-family: "Press Start 2P", cursive;
+}

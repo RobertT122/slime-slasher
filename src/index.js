@@ -9,21 +9,37 @@ window.Game = Game;
 window.addEventListener("DOMContentLoaded", () =>{
   let canvas = document.getElementById("canvas1")
   let ctx = canvas.getContext("2d")
-  const image = new Image()
-  image.src = "GreenSlimeidle-sprite-sheet-export.png"
-  let idx = 0;
-  let square = image.height;
-  let positionX = 100;
-  let positionY = 100;
-  image.addEventListener("load", function(){
-    //example of a frame animation of the green slime.
-    ctx.drawImage(image, idx*square, 0, square, square, positionX, positionY, square, square);
-    setInterval(function(){
-      idx = (idx+1)%4;
-      ctx.clearRect(0,0, canvas.clientWidth, canvas.height);
-      ctx.drawImage(image, idx*square, 0, square, square, positionX, positionY, square, square);
-  
-    }, 150)
+  let frameRate = 150;
+  // "Clean" frame rates:
+  // 150, 130, 105, 55, 30
+  let game = new Game(ctx);
+  let frameCount = 0;
+
+
+
+  let red = document.getElementById("red")
+  red.addEventListener("click", function(){
+    game.currentEnemy.recieveAttack("red")
+    console.log("RED")
   })
+
+  let green = document.getElementById("green")
+  green.addEventListener("click", function(){
+    console.log("GREEN")
+  })
+
+  let blue = document.getElementById("blue")
+  blue.addEventListener("click", function(){
+    console.log("BLUE")
+  })
+
+
+
+
+  setInterval(function(){
+    frameCount++
+    ctx.clearRect(0,0, canvas.clientWidth, canvas.height);
+    game.render(frameCount, frameRate);
+  }, frameRate)
 
 })

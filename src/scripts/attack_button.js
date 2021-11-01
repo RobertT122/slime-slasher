@@ -1,23 +1,17 @@
+
 class AttackButton {
-  constructor(name, color, position){
-    this.name = name;
+  constructor(color){
     this.color = color;
     // position will either be 1, 2, or 3
-    this.position = position;
     this.active = false;
+    this.wasClicked = false;
   }
   activate(){
     this.renderActive();
     this.active = true;
   }
 
-
-
-
-
-
-
-  renderActive() {
+  render() {
     //renders the button on the screen
   }
 
@@ -26,31 +20,54 @@ class AttackButton {
     this.active = false;
   }
 
-  renderInactive() {
-    //grey out the button
-  }
 
   sendAttack(enemy) {
     enemy.receiveAttack(this.color)
-  }
-
-  animateAttack() {
-    //renders the attack animation on the screen
-  }
-
-
-  animateClick() {
-    //animates the button being pressed down
+    this.wasClicked = true;
   }
 
   click(enemy){
     if (this.active){
-      this.animateClick();
-      this.animateAttack();
       this.sendAttack(enemy);
+    }
+  }
+
+
+  //will become depreciated (testing purposes only)
+  renderHtmlEle(doc){
+    if (this.active) {
+      // let button = doc.
     }
   }
 
 }
 
-export default AttackButton;
+class AttackButtons {
+  constructor() {
+    this.buttons = AttackButtons.generateButtonArray();
+  }
+
+  activateButtons(){
+    this.buttons.forEach(button=>{button.activate()})
+  }
+  deactivateButtons(){
+    this.buttons.forEach(button=>{button.deactivate()})
+  }
+  anyClicked(){
+    this.buttons.some(button => button.wasClicked)
+  }
+
+  resetClicked(){
+    this.buttons.forEach(button => button.wasClicked = false)
+  }
+
+  static generateButtonArray() {
+    return [
+      new AttackButton("red"),
+      new AttackButton("green"),
+      new AttackButton("blue")
+    ]
+  }
+}
+
+export default AttackButtons;

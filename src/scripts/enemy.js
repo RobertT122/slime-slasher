@@ -1,65 +1,111 @@
 import Player from "./player"
 
 class Enemy{
-  constructor(prototype) {
+  constructor(prototype, ctx) {
     this.name = prototype.name;
     this.description = prototype.description;
     this.weakTo = prototype.weakTo;
-    this.resists = prototype.resists;
-    this.life = prototype.life || 6;
-    //responses must take the player as an argument
-    this.response = prototype.response || this.attack;
-    this.render();
+
+    this.ctx = ctx
+    this.positionX = 960;
+    this.positionY = 400;
+
+    this.sprite = this.loadSprite();
+    this.square = this.sprite.height/3;
+    //square is used because sprite height and width are equal;
+    //their are three animations in the sprite sheet;
+    this.localFrameCount = 0;
+
+    //Logic for determinig which animation to run;
+    this.wasAttacked = false;
+    this.receivedDamage = false;
+    this.wasDeadly = false;
   }
 
-  
-  
-  receiveAttack(color){
-    this.animateDamaged();
+  retired(){
+    //returns true if all animations are complete
+    // checks booleans if animation is running
+  }
+
+
+  recieveAttack(color){
+    this.wasAttacked = true;
+    // this.receivedDamage = true;
+    console.log("hit")
     if (this.weakTo === color){
-      this.life -= 6;
-      return 1;
-    } else if (this.resists === color){
-      this.life -= 1;
-      return -1;
-    } else {
-      this.life -= 3;
-      return 0;
+      console.log("deadly")
+      this.wasDeadly = true;
     }
-  }
-
-  isAlive(){
-    return this.life > 0
   }
   
   attack(player){
-    this.animateAttck();
     player.takeDamage();
   }
+
+  loadSprite() {
+    const image = new Image()
+    image.src = "sprites/GreenSlimeIdle-Sheet.png"
+    return image;
+  }
   
-  render(){
-    // grabs the sprite matching the name of the enemy
-    // creates the enemy element offscreen
-    // animates into correct position
+  render(frame){
+    if(this.wasAttacked){
+      if(this.receivedDamage) {
+        if(this.wasDeadly) {
+          //will play after damageAnimation if attack was deadly
+          this.deathAnimation();
+        } else {
+          //will play after damageAnimation if attack was not deadly
+          this.attackAnimation();
+        }
+      } else {
+        this.damageAnimation();
+      }
+    } else {
+      this.idleAnimation(frame);
+    }
   }
 
-  animateAttck(){
+  idleAnimation(frame){
+    this.updatePosition();
+    let col = frame % 4;
+    this.animate(0, col)
+
+  }
+
+  animate(sequence, frame){
+    this.ctx.drawImage(this.sprite, frame*this.square, sequence*this.square, this.square, this.square, this.positionX, this.positionY, this.square, this.square)
+  }
+
+  attackAnimation(){
     //animation associated with attack
   }
 
-  animateDamaged(){
+  damageAnimation(){
     //animation associated with being damaged.
   }
 
-  animateDeath(){
+  deathAnimation(){
     //renders a death animation and clears html elements.
+  }
+
+  updatePosition(){
+    if (this.positionX > 360) {
+      this.positionX -= 120;
+      // console.log(this.positionX)
+    } else if (this.positionX > 240){
+      //slow down effect
+      this.positionX -= 60;
+    } else {
+      this.positionX = 240
+    }
   }
   
   
-  static generateNewEnemy(){
+  static generateNewEnemy(ctx){
     let pIdx = Math.floor(Math.random() * Enemy.activePrototypes.length);
     let prototype = Enemy.activePrototypes[pIdx];
-    return new Enemy(prototype);
+    return new Enemy(prototype, ctx);
   }
   //
 
@@ -70,19 +116,16 @@ class Enemy{
       name: "RedSlime",
       description: "A red slime",
       weakTo: "blue",
-      resists: "green"
     },
     {
       name: "BlueSlime",
       description: "A blue slime",
       weakTo: "green",
-      resists: "red"
     },
     {
       name: "GreenSlime",
       description: "A green slime",
       weakTo: "red",
-      resists: "blue"
     }
   ];
 
