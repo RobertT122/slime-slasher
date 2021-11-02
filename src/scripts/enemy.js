@@ -10,6 +10,7 @@ class Enemy{
     this.ctx = ctx
     this.positionX = 960;
     this.positionY = 400;
+    this.animationSpeed = 4;
 
     this.sprite = this.loadSprite();
     this.square = 320;
@@ -18,16 +19,18 @@ class Enemy{
 
     this.enemyState = 0;
     // idle:0, attacking:1, dying:-1
+    // this.landsAttack = false;
+    // //lets the game know if the enemy has landed the attack
     this.retired = 0;
     // active:0, escaping:1, dead:-1
 
   }
 
 
-  recieveAttack(color){
-    console.log("hit");
+  receiveAttack(color){
+    // console.log("hit");
     if (this.weakTo === color){
-      console.log("deadly");
+      // console.log("deadly");
       this.enemyState = -1;
     } else {
       this.enemyState = 1;
@@ -41,19 +44,15 @@ class Enemy{
 
   loadSprite() {
     const image = new Image()
-    console.log(this.type)
     this.ctx.fillStyle = "black"
     switch(this.type){
-      case "RedSlime":
-        console.log("red")
+      case "Red Slime":
         image.src = "sprites/RedSlime-Sheet.png";
         break;
-      case "BlueSlime":
-        console.log("blue")
+      case "Blue Slime":
         image.src = "sprites/BlueSlime-Sheet.png";
         break;
-      case "GreenSlime":
-        console.log("green")
+      case "Green Slime":
         image.src = "sprites/GreenSlime-Sheet.png";
         break;
     }
@@ -61,6 +60,7 @@ class Enemy{
   }
   
   render(frame){
+    let newFrame = Math.floor(frame/this.animationSpeed)
     this.ctx.fillStyle = this.color;
     switch(this.enemyState){
       case 2:
@@ -73,7 +73,7 @@ class Enemy{
         this.deathAnimation();
         break;
       default:
-        this.idleAnimation(frame);
+        this.idleAnimation(newFrame);
     }
   }
 
@@ -83,6 +83,7 @@ class Enemy{
 
   idleAnimation(frame){
     this.updatePosition();
+    
     let col = frame % 4;
     this.animate(0, col)
   }
@@ -92,14 +93,18 @@ class Enemy{
     //animation associated with attack
     //12 frames total
     if (this.localFrameCount < 4){
+      // if(this.localFrame%3 === 1){
+      //   this.positionX += 10;
+      // }else{
+      //   this.positionX = 240;
+      // }
       this.animate(1, this.localFrameCount)
       this.localFrameCount++;
     } else if(this.localFrameCount < 8){
-      this.positionX -= 180
-      this.animate(0, this.localFrameCount%4)
-      this.localFrameCount++
-    } else{
-      this.localFrameCount = 0;
+      this.positionX -= 180;
+      this.animate(0, this.localFrameCount%4);
+      this.localFrameCount++;
+    } else {
       this.retired = 1;
     }
   }
@@ -111,11 +116,10 @@ class Enemy{
       this.animate(1, this.localFrameCount)
       this.localFrameCount++;
     } else if(this.localFrameCount < 8){
-      this.positionX -= 180
-      this.animate(0, this.localFrameCount%4)
-      this.localFrameCount++
+      this.positionX -= 180;
+      this.animate(0, this.localFrameCount%4);
+      this.localFrameCount++;
     } else{
-      this.localFrameCount = 0;
       this.retired = 1;
     }
   }
@@ -165,19 +169,19 @@ class Enemy{
 //Add enemy Prototypes here
   static activePrototypes = [
     {
-      type: "RedSlime",
+      type: "Red Slime",
       color: "red",
       description: "A red slime",
       weakTo: "blue",
     },
     {
-      type: "BlueSlime",
+      type: "Blue Slime",
       color: "blue",
       description: "A blue slime",
       weakTo: "green",
     },
     {
-      type: "GreenSlime",
+      type: "Green Slime",
       color: "green",
       description: "A green slime",
       weakTo: "red",

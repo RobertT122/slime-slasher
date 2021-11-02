@@ -10,11 +10,13 @@ class Game {
     this.ctx = ctx
     this.lifeTotal = 3
     this.player = new Player(this.lifeTotal,ctx);
-    this.timeLimit = 3;
+    this.timeLimit = this.player.timeLimit;
     this.currentTimer = new Timer(this.timeLimit, ctx);
     this.currentEnemy = Enemy.generateNewEnemy(ctx);
-    this.attackButtons = new AttackButtons();
+    this.attackButtons = new AttackButtons(ctx);
     this.background = this.setBackground();
+    this.screenElements = this.gameBoardElements();
+
   }
 
   setBackground(){
@@ -30,6 +32,7 @@ class Game {
 
   resetTimer(){
     this.currentTimer.finishEarly();
+    // this.timeLimit = this.player.timeLimit
     this.currentTimer = new Timer(this.timeLimit, this.ctx);
   }
 
@@ -39,13 +42,16 @@ class Game {
     
   render(frame, frameRate){
     if(this.playing()){
+      this.screenElements = this.gameBoardElements();
       this.resolveTimer();
       this.resolveAttack();
       this.renderBackground();
       this.currentEnemy.render(frame);
       this.currentTimer.render(frameRate);
       this.player.render();
+      this.attackButtons.render();
     } else{
+      this.screenElements = [];
       this.renderGameOver();
     }
   }
@@ -55,23 +61,39 @@ class Game {
   }
 
   renderGameOver(){
-    this.ctx.font = ("75px 'Press Start 2P'")
-    this.ctx.fillText("Game Over", 40, 500)
-    this.ctx.font = ("50px 'Press Start 2P'")
-    this.ctx.fillText(`Score: ${this.player.gold}`, 180, 600)
+    this.player.renderGameOver();
   }
 
 
   resolveAttack(){
+    // let attacking = (this.currentEnemy.state === 1 || this.currentEnemy.state === 2)
+    // if(attacking && !this.currentEnemy.landAttack){
+    //   this.currentEnemy.landAttack = true
+    //   this.player.takeDamage();
+    // }
+    // Add the ability to update attack on attack frame
     if(this.currentEnemy.retired){
       if(this.currentEnemy.retired === 1){
         this.player.takeDamage();
       } else {
+        this.player.updateLog(this.currentEnemy);
         this.player.addGold(1);
       }
+      // increment level when the player is still alive
+      if(this.player.hearts > 0){
+        this.resolveLevel();
+      }
+
       this.resetEnemy();
       this.resetTimer();
+
     }
+  }
+
+  resolveLevel(){
+    this.player.nexLevel();
+    this.timeLimit = this.player.timeLimit
+    this.attackButtons.resetClicked();
   }
 
   resolveTimer(){
@@ -86,6 +108,41 @@ class Game {
     if(this.currentTimer.time <= 0){
       this.currentEnemy.enemyState = 2;
     }
+    this.resolveAnimationRate();
+  }
+
+  resolveAnimationRate(){
+    //changes the speed of the idle animation depending on the time left
+    if(this.currentTimer.time >=12){
+      this.currentEnemy.animationSpeed = 4
+    } else if(this.currentTimer.time > 5){
+      this.currentEnemy.animationSpeed = 2
+    } else {
+      this.currentEnemy.animationSpeed = 1;
+    }
+  }
+
+  manageClickEvent(x,y){
+    // console.log(`${x}, ${y}`)
+    this.screenElements.forEach(ele=>{
+      let widthSpan = [ele.pos[0], ele.pos[0]+ele.size[0]]
+      let heightSpan = [ele.pos[1], ele.pos[1]+ele.size[1]]
+      let inX = (x >= widthSpan[0] && x <= widthSpan[1])
+      let inY = (y >= heightSpan[0] && y <= heightSpan[1])
+      if(inX && inY){
+        ele.click(this);
+      }
+    })
+  }
+
+
+  gameBoardElements(){
+    return [
+      // ...this.player.generateElements(),
+      // ...this.currentTimer.generateElements(),
+      // ...this.currentTimer.generateElements(),
+      ...this.attackButtons.buttons
+    ]
   }
 
   playing(){
