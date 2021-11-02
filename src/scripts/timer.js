@@ -5,13 +5,14 @@ class Timer {
     this.ctx = ctx;
     this.frameConversion = undefined;
     this.secondFraction = 0;
+    this.renderPos = [340, 350]
   }
   
   render(frameRate){
     this.frameConversion = this.frameConversion || frameRate/1000
     this.isDone();
-    this.ctx.font=("100px PressStart2P")
-    this.ctx.fillText(this.timeString(), 340, 200)
+    this.ctx.font=("50px 'Press Start 2P'")
+    this.ctx.fillText(this.timeString(), this.renderPos[0], this.renderPos[1])
   }
 
   isDone(){
@@ -36,13 +37,21 @@ class Timer {
   timeString(){
     if (this.time > 10 ||(this.time === 10 && this.secondFraction === 0)){
       return this.time
+    }else if(this.time > 0){
+      this.ctx.font=("45px 'Press Start 2P'")
+      this.renderPos[0] = 330;
+      return (this.time + this.secondFraction).toFixed(1)
+    } else{
+      this.renderPos[0] = 180;
+      return "Times Up!"
     }
-    return (this.time + this.secondFraction).toFixed(1)
   }
 
   finishEarly(){
-    this.pause = true;
-    return Math.ceil(this.time);
+    if (!this.paused){
+      this.paused = true;
+      return Math.floor(this.time);
+    }
   }
 
 }
