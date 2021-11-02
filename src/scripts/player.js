@@ -23,7 +23,7 @@ class Player {
     this.currentLevel++;
     if(this.timeLimit >= 12){
       this.timeLimit -= 3;
-    } else if (this.timeLimit > 1){
+    } else if (this.timeLimit > 2){
       this.timeLimit -= 1;
     }
   }

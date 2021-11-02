@@ -6,7 +6,7 @@ window.Game = Game;
 window.addEventListener("DOMContentLoaded", () =>{
   let canvas = document.getElementById("canvas1")
   let ctx = canvas.getContext("2d")
-  let frameRate = 105;
+  let frameRate = 55;
   // "Clean" frame rates:
   // 150, 130, 105, 55, 30
   let game = new Game(ctx);
@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", () =>{
     let scaler= 800/document.documentElement.scrollWidth;
     let x = Math.round(scaler *event.pageX);
     let y = Math.round(scaler *event.pageY);
-    game.manageClickEvent(x,y,scaler);
+    game.manageClickEvent(x,y);
   })
 
   setInterval(function(){

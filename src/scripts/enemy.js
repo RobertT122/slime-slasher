@@ -92,15 +92,14 @@ class Enemy{
   attackAnimation(){
     //animation associated with attack
     //12 frames total
+
     if (this.localFrameCount < 4){
-      // if(this.localFrame%3 === 1){
-      //   this.positionX += 10;
-      // }else{
-      //   this.positionX = 240;
-      // }
-      this.animate(1, this.localFrameCount)
+      this.animate(3,this.localFrameCount)
       this.localFrameCount++;
-    } else if(this.localFrameCount < 8){
+    } else if (this.localFrameCount < 8){
+      this.animate(1, this.localFrameCount%4)
+      this.localFrameCount++;
+    } else if(this.localFrameCount < 12){
       this.positionX -= 180;
       this.animate(0, this.localFrameCount%4);
       this.localFrameCount++;
@@ -124,17 +123,15 @@ class Enemy{
     }
   }
 
-  // damageAnimation(){
-  //   //animation associated with being damaged.
-  //   console.log("damaged")
-  // }
-  // incorperate the damageAnimation and the escape frames into the attackAnimation
 
   deathAnimation(){
     //8 frames total
-    console.log("dying")
-    if (this.localFrameCount < 3){
-      this.animate(2, this.localFrameCount)
+
+    if (this.localFrameCount < 4){
+      this.animate(3, this.localFrameCount)
+      this.localFrameCount++;
+    }else if (this.localFrameCount < 8){
+      this.animate(2, this.localFrameCount%4)
       this.localFrameCount++;
     } else{
       this.localFrameCount = 0;
