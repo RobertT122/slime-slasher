@@ -109,7 +109,7 @@ class Enemy{
       this.animate(1, this.localFrameCount%4)
       this.localFrameCount++;
     } else if(this.localFrameCount < 12){
-      this.positionX -= 120;
+      this.positionX -= 160;
       this.animate(0, this.localFrameCount%4);
       this.localFrameCount++;
     } else {
@@ -124,7 +124,7 @@ class Enemy{
       this.animate(1, this.localFrameCount)
       this.localFrameCount++;
     } else if(this.localFrameCount < 8){
-      this.positionX -= 180;
+      this.positionX -= 120;
       this.animate(0, this.localFrameCount%4);
       this.localFrameCount++;
     } else{

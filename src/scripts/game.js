@@ -15,11 +15,10 @@ class Game {
     this.currentTimer = new Timer(this.timeLimit, ctx);
     this.currentEnemy = Enemy.generateNewEnemy(ctx);
     this.attackButtons = new AttackButtons(ctx);
-    this.screenElements = this.getScreenElements(this.gameState);
-    this.menuButtons = [];
     this.down = true;
     //0: MainMenu, 1: GameBoard, -1:GameOver
-    this.gameState = -1;
+    this.gameState = 0;
+    this.screenElements = this.getScreenElements(this.gameState);
     this.background = this.setBackground(this.gameState);
   }
 
@@ -58,15 +57,13 @@ class Game {
     switch(this.gameState){
       case 1:
         this.checkGameEnd();
-        //put this in the redirect
-        this.screenElements = this.getScreenElements(1);
         this.renderGameScreen(frameRate);
         break;
       case -1:
-        this.screenElements = [];
         this.renderGameOver();
         break;
       case 0:
+        this.renderMainMenu();
     }
   }
 
@@ -92,7 +89,7 @@ class Game {
   }
   
   renderMainMenu(){
-
+    this.renderStartButton();
   }
 
   renderStartButton(){
@@ -172,31 +169,48 @@ class Game {
   }
 
 
-  getScreenElements(){
-    return [
-      // ...this.menuButtons,
-      ...this.attackButtons.buttons
-    ]
+  getScreenElements(gameState){
+    switch (gameState){
+      case 1:
+        return [
+          ...MenuButtons.generateGameBoardButtons(this.ctx),
+          ...this.attackButtons.buttons
+        ]
+      case 0:
+        return [
+          ...MenuButtons.generateMainMenuButtons(this.ctx),
+        ]
+      case -1:
+        return [
+          ...MenuButtons.generateGameOverButtons(this.ctx),
+        ]
+    }
   }
 
   checkGameEnd(){
     if(this.player.hearts <= 0){
       this.gameState = -1
       this.background = this.setBackground(-1)
+      this.screenElements = this.getScreenElements(-1)
     }
   }
 
   softReset(){
     this.lifeTotal = 3
-    this.player = new Player(this.lifeTotal,ctx);
+    this.player.softReset(this.lifeTotal);
     this.timeLimit = this.player.timeLimit;
-    this.currentTimer = new Timer(this.timeLimit, ctx);
-    this.currentEnemy = Enemy.generateNewEnemy(ctx);
+    this.currentTimer = new Timer(this.timeLimit, this.ctx);
+    this.currentEnemy = Enemy.generateNewEnemy(this.ctx);
+    this.attackButtons.resetClicked();
   }
 
   redirect(state){
-    this.softReset();
+    if(state === 1){
+      this.softReset();
+    }
     this.gameState = state;
+    this.background = this.setBackground(state);
+    this.screenElements = this.getScreenElements(state);
   }
 
 

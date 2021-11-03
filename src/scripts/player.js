@@ -45,7 +45,6 @@ class Player {
   }
 
   updateLog(enemy){
-    console.log(enemy.type)
     if(this.log[enemy.type]){
       this.log[enemy.type].kos += 1;
     } else{
@@ -154,6 +153,13 @@ class Player {
     const image = new Image()
     image.src = `src/assets/sprites/${name}-Sheet.png`;
     return image;
+  }
+
+  softReset(lifeTotal){
+    this.timeLimit = 15
+    this.currentLevel = 1;
+    this.gold = 0;
+    this.hearts = lifeTotal;
   }
 
 }

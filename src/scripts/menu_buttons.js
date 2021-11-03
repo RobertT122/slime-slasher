@@ -1,13 +1,16 @@
 class NaviagationButton{
   // 0 for main menu, 1 for game board
-  constructor(gameState, ctx){
-    this.gameState = gameState;
+  constructor(prototype, ctx){
+    this.gameState = prototype.gameState;
     this.ctx = ctx
-    this.pos = []
-    this.size = []
+    this.pos = prototype.pos
+    this.size = prototype.size
   }
 
   click(game){
+    // this.ctx.beginPath();
+    // this.ctx.rect(this.pos[0], this.pos[1], this.size[0], this.size[1]);
+    // this.ctx.stroke();
     game.redirect(this.gameState);
   }
 
@@ -16,17 +19,28 @@ class NaviagationButton{
 
 
 class MenuButtons{
-  constructor(){
-  }
 
-  static generateMainMenuButtons(){
+  static backButton = {gameState: 0, pos:[10,30], size:[270,140]}
+  static playButton = {gameState: 1, pos:[180,540], size:[440,160]}
+
+  static generateMainMenuButtons(ctx){
+    return [
+      new NaviagationButton(MenuButtons.playButton, ctx)
+    ]
     // creates a list of buttons for the main menu
   }
-  static generateGameOverButtons(){
+  static generateGameOverButtons(ctx){
+    return [
+      new NaviagationButton(MenuButtons.backButton, ctx),
+      new NaviagationButton(MenuButtons.playButton, ctx)
+    ]
     //creates a list of buttons for the game over scree
   }
-  static generateGameBoardButtons(){
+  static generateGameBoardButtons(ctx){
     // creates a list of buttons for the play screen
+    return [
+      new NaviagationButton(MenuButtons.backButton, ctx)
+    ]
   }
 }
 
