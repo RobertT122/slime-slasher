@@ -17,9 +17,18 @@ window.addEventListener("DOMContentLoaded", () =>{
 
   //event lisitener for canvas
   canvas.addEventListener("click", function(event){
-    let scaler= 800/document.documentElement.scrollWidth;
-    let x = Math.round(scaler *event.pageX);
-    let y = Math.round(scaler *event.pageY);
+    let docWidth = document.documentElement.scrollWidth;
+    let x = event.pageX;
+    let y = event.pageY;
+    if (docWidth > 800){
+      let margin = (docWidth-800)/2
+      x -= margin;
+    }else{
+      let scaler= 800/docWidth;
+      x = Math.round(scaler * x);
+      y = Math.round(scaler * y);
+    }
+    // window.location.href = "https://github.com/RobertT122"; 
     game.manageClickEvent(x,y);
   })
 
@@ -28,7 +37,7 @@ window.addEventListener("DOMContentLoaded", () =>{
     ctx.clearRect(0,0, canvas.width, canvas.height);
     game.render(frameCount, frameRate);
   }, frameRate)
-
+  
 })
 
 

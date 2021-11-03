@@ -1,24 +1,13 @@
 @import url("styles/reset.scss");
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-h1 {
-  display: block;
-  font-family: "Press Start 2P", cursive;
-  font-size: 40px;
-  margin-left: 120px;
-}
-
-.test {
-  height: 190px;
-  width: 240px;
-  font-size: 30px;
-  font-family: "Press Start 2P", cursive;
-  margin-right: 20px;
-}
-#green{
-  margin-left: 20px;
-}
 
 #canvas1{
+  max-width: 800px;
   width: 100%;
+}
+
+#game-box{
+  display: flex;
+  justify-content: center;
 }

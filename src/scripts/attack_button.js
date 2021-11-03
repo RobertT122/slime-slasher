@@ -56,7 +56,7 @@ class AttackButton {
   
   loadSprite() {
     const image = new Image()
-    image.src = "sprites/AttackButtons-Sheet.png";
+    image.src = "src/assets/sprites/AttackButtons-Sheet.png";
     return image;
   }
 

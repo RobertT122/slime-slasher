@@ -29,11 +29,19 @@ class Enemy{
 
   receiveAttack(color){
     // console.log("hit");
+    this.localFrameCount = 0;
     if (this.weakTo === color){
       // console.log("deadly");
       this.enemyState = -1;
     } else {
       this.enemyState = 1;
+    }
+  }
+
+  timeOut(){
+    if (this.enemyState !== 2){
+      this.localFrameCount = 0;
+      this.enemyState = 2
     }
   }
   
@@ -47,13 +55,13 @@ class Enemy{
     this.ctx.fillStyle = "black"
     switch(this.type){
       case "Red Slime":
-        image.src = "sprites/RedSlime-Sheet.png";
+        image.src = "src/assets/sprites/RedSlime-Sheet.png";
         break;
       case "Blue Slime":
-        image.src = "sprites/BlueSlime-Sheet.png";
+        image.src = "src/assets/sprites/BlueSlime-Sheet.png";
         break;
       case "Green Slime":
-        image.src = "sprites/GreenSlime-Sheet.png";
+        image.src = "src/assets/sprites/GreenSlime-Sheet.png";
         break;
     }
     return image;
@@ -81,11 +89,12 @@ class Enemy{
     this.ctx.drawImage(this.sprite, frame*this.square, sequence*this.square, this.square, this.square, this.positionX, this.positionY, this.square, this.square)
   }
 
-  idleAnimation(frame){
+  idleAnimation(){
     this.updatePosition();
-    
-    let col = frame % 4;
+    let newFrame = Math.floor(this.localFrameCount/this.animationSpeed)
+    let col = newFrame % 4;
     this.animate(0, col)
+    this.localFrameCount++;
   }
 
 
@@ -100,7 +109,7 @@ class Enemy{
       this.animate(1, this.localFrameCount%4)
       this.localFrameCount++;
     } else if(this.localFrameCount < 12){
-      this.positionX -= 180;
+      this.positionX -= 120;
       this.animate(0, this.localFrameCount%4);
       this.localFrameCount++;
     } else {
