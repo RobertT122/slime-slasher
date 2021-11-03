@@ -28,7 +28,6 @@ window.addEventListener("DOMContentLoaded", () =>{
       x = Math.round(scaler * x);
       y = Math.round(scaler * y);
     }
-    // window.location.href = "https://github.com/RobertT122"; 
     game.manageClickEvent(x,y);
   })
 
@@ -36,8 +35,23 @@ window.addEventListener("DOMContentLoaded", () =>{
     incrementFrame()
     ctx.clearRect(0,0, canvas.width, canvas.height);
     game.render(frameCount, frameRate);
+    if (game.toggleColor){
+      altColorMode(canvas, ctx);
+    }
   }, frameRate)
   
 })
+
+function altColorMode(canvas, ctx){
+  const scan = ctx.getImageData(0,0,canvas.width, canvas.height);
+  const scannedData = scan.data;
+  for(let i = 0; i < scannedData.length; i+= 4){
+    if(scannedData[i] > scannedData[i+1]){
+      scannedData[i+1] = scannedData[i];
+    }
+  }
+  let newScan = new ImageData(scannedData, canvas.width, canvas.height)
+  ctx.putImageData(newScan, 0, 0);
+}
 
 

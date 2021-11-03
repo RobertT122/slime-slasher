@@ -15,6 +15,7 @@ class GitHubButton{
   click(game){
     this.pressed = 0;
     //sends the user to my github page
+    window.location.href = "https://github.com/RobertT122"
   }
 }
 
@@ -33,11 +34,12 @@ class ToggleCB{
   }
 
   click(game){
-    //toggles on and off the game altColor attribute
     if(this.toggled){
       this.toggled = 0;
+      game.toggleColor = true
     } else{
       this.toggled = 1
+      game.toggleColor = false
     }
   }
 }

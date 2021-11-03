@@ -158,6 +158,7 @@ class Player {
     this.currentLevel = 1;
     this.gold = 0;
     this.hearts = lifeTotal;
+    this.log = {};
   }
 
 }

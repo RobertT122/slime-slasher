@@ -9,6 +9,7 @@ import ToolButtons from './tool_buttons.js';
 
 class Game {
   constructor(ctx) {
+    this.toggleColor = false;
     this.ctx = ctx
     this.lifeTotal = 3
     this.player = new Player(this.lifeTotal,ctx);
@@ -254,6 +255,10 @@ class Game {
       this.ctx.fillText(line, 140, posY)
       posY += 25
     })
+
+    this.ctx.font=("17px 'Press Start 2P'")
+    this.ctx.fillText(`Toggle         GitHub        Toggle`, 100, 1210)
+    this.ctx.fillText(`Alt Color        Link          Tips`, 80, 1230)
   }
 
   renderTipsAnimations(){
