@@ -8,8 +8,6 @@ class Player {
 
     this.attacked = false;
     // log[enemy.type] = {kos: 1, color: "color"}
-    let image = new Image()
-    image.src = "src/assets/sprites/RedSlime-Sheet.png";
     this.log = {};
     this.timeLimit = 15;
     this.score = 0;
@@ -71,12 +69,12 @@ class Player {
 
   renderGold() {
     this.ctx.font = ("30px 'Press Start 2P'")
-    this.ctx.fillText(`GP: ${this.gold}`, 600, 770)
+    this.ctx.fillText(`GP:${this.gold < 10? " ": ""}${this.gold}`, 600, 770)
   }
 
   renderLevelCounter(){
     this.ctx.font = ("30px 'Press Start 2P'")
-    this.ctx.fillText(`LVL: ${this.currentLevel}`, 550, 70)
+    this.ctx.fillText(`LVL:${this.currentLevel < 100? " ": ""}${this.currentLevel}`, 550, 70)
   }
 
   renderLog(){
@@ -98,12 +96,12 @@ class Player {
             this.ctx.fillText(this.log[entry].kos, 310 + (60/width), 970)
             this.ctx.drawImage(this.log[entry].image, newframe*320, 0, 320, 320, 320, 1000, 160, 160)
             break;
-            case "blue":
+          case "blue":
             this.ctx.fillStyle = "darkblue";
             this.ctx.fillText(this.log[entry].kos, 570 + (60/width), 970)
             this.ctx.drawImage(this.log[entry].image, frame*320, 0, 320, 320, 570, 1000, 160, 160)
             break;
-            case "green":
+          case "green":
             this.ctx.fillStyle = "lightgreen";
             this.ctx.fillText(this.log[entry].kos, 60 + (60/width), 970)
             this.ctx.drawImage(this.log[entry].image, frame*320, 0, 320, 320, 70, 1000, 160, 160)

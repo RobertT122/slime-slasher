@@ -1,8 +1,9 @@
-import AttackButtons from './attack_button.js'
 import Player from './player.js'
 import Enemy from './enemy.js'
 import Timer from './timer.js';
+import AttackButtons from './attack_button.js'
 import MenuButtons from './menu_buttons.js';
+import ToolButtons from './tool_buttons.js';
 
 //handle game logic and interactions between classes
 
@@ -14,12 +15,19 @@ class Game {
     this.timeLimit = this.player.timeLimit;
     this.currentTimer = new Timer(this.timeLimit, ctx);
     this.currentEnemy = Enemy.generateNewEnemy(ctx);
+
     this.attackButtons = new AttackButtons(ctx);
-    this.down = true;
-    //0: MainMenu, 1: GameBoard, -1:GameOver
-    this.gameState = 0;
+    this.toolButtons = new ToolButtons(ctx);
+    //0: MainMenu, 1: GameBoard, -1:GameOver, 2:Tips
+    this.gameState = 2;
     this.screenElements = this.getScreenElements(this.gameState);
     this.background = this.setBackground(this.gameState);
+    this.globalFrame = 0;
+    console.log(this.toolButtons)
+  }
+
+  incrementFrame(){
+    this.globalFrame = (this.globalFrame+1)%16
   }
 
   setBackground(state){
@@ -33,7 +41,10 @@ class Game {
         break;
       case 1:
         image.src = "src/assets/sprites/GameBoard.png"
-      }
+        break;
+      case 2:
+        image.src = "src/assets/sprites/Tips.png"
+    }
     return image
   }
   
@@ -52,7 +63,8 @@ class Game {
     this.currentEnemy = Enemy.generateNewEnemy(this.ctx);
   }
     
-  render(frame, frameRate){
+  render(frameRate){
+    this.incrementFrame();
     this.renderBackground();
     switch(this.gameState){
       case 1:
@@ -64,6 +76,9 @@ class Game {
         break;
       case 0:
         this.renderMainMenu();
+        break;
+      case (2):
+        this.renderTips();
     }
   }
 
@@ -89,13 +104,20 @@ class Game {
   }
   
   renderMainMenu(){
+    this.toolButtons.render();
     this.renderStartButton();
   }
 
+  renderTips(){
+    this.toolButtons.render();
+    this.renderTipsText(Game.tips);
+    this.renderTipsAnimations();
+  }
+
   renderStartButton(){
-    let posY = 600;
-    if(this.down){
-      posY = 605
+    let posY = 605;
+    if(this.globalFrame % 4 === 1){
+      posY = 600
       this.down = false;
     } else {
       this.down = true;
@@ -179,10 +201,16 @@ class Game {
       case 0:
         return [
           ...MenuButtons.generateMainMenuButtons(this.ctx),
+          ...this.toolButtons.buttons
         ]
       case -1:
         return [
           ...MenuButtons.generateGameOverButtons(this.ctx),
+        ]
+      case 2:
+        return [
+          ...MenuButtons.generateTipButtons(this.ctx),
+          ...this.toolButtons.buttons
         ]
     }
   }
@@ -212,6 +240,46 @@ class Game {
     this.background = this.setBackground(state);
     this.screenElements = this.getScreenElements(state);
   }
+
+  renderTipsText(text){
+    this.ctx.fillStyle = "black"
+    this.ctx.font = ("35px 'Press Start 2P'")
+    this.ctx.fillText(`Welcome to`, 225, 160)
+    this.ctx.fillText(`Slime Slasher`, 170, 210)
+
+    this.ctx.font = ("20px 'Press Start 2P'")
+    let posY = 260
+    let lines = text.split("\n")
+    lines.forEach(line=>{
+      this.ctx.fillText(line, 140, posY)
+      posY += 25
+    })
+  }
+
+  renderTipsAnimations(){
+    let buttons = new Image();
+    buttons.src = 'src/assets/sprites/AttackButtons-Sheet.png'
+    let red = new Image();
+    red.src = 'src/assets/sprites/RedSlime-Sheet.png'
+    let green = new Image();
+    green.src = 'src/assets/sprites/GreenSlime-Sheet.png'
+    let blue = new Image();
+    blue.src = 'src/assets/sprites/BlueSlime-Sheet.png'
+    let localFrame = (Math.floor(this.globalFrame/4))
+    this.ctx.drawImage(blue, localFrame*320, 640, 320, 320, 210, 360, 80, 80)
+    this.ctx.drawImage(buttons, (localFrame === 1? 1: 0)*240, 0, 240, 380, 220, 440, 60, 90)
+    
+    this.ctx.drawImage(green, localFrame*320, 640, 320, 320, 370, 360, 80, 80)
+    this.ctx.drawImage(buttons, (localFrame === 1? 1: 0)*240, 760, 240, 380, 380, 440, 60, 90)
+    
+    this.ctx.drawImage(red, localFrame*320, 640, 320, 320, 530, 360, 80, 80)
+    this.ctx.drawImage(buttons, (localFrame === 1? 1: 0)*240, 380, 240, 380, 540, 440, 60, 90)
+    
+    //draw the attack animation on the bottom of the screen
+    this.ctx.drawImage(green, ((localFrame+1)%4)*320, 320, 320, 320, 330, 690, 160, 160)
+  }
+
+  static tips = " Your goal is to defeat\n slimes before the time\n  runs out. You do this\nby attacking slimes with\nthe counter to their type: \n\n\n\n\n\n\n\nBe sure to watch the time,\nyou get less as your level \nincreases! Run out of time\nor choose the wrong counter\nand you will be damaged! \n You start with 3 Lives"
 
 
 }

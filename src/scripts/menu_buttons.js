@@ -22,10 +22,13 @@ class MenuButtons{
 
   static backButton = {gameState: 0, pos:[10,30], size:[270,140]}
   static playButton = {gameState: 1, pos:[180,540], size:[440,160]}
+  static turnOnTips = {gameState: 2, pos:[580,910], size:[150,210]}
+  static turnOffTips = {gameState: 0, pos:[580,910], size:[150,210]}
 
   static generateMainMenuButtons(ctx){
     return [
-      new NaviagationButton(MenuButtons.playButton, ctx)
+      new NaviagationButton(MenuButtons.playButton, ctx),
+      new NaviagationButton(MenuButtons.turnOnTips, ctx)
     ]
     // creates a list of buttons for the main menu
   }
@@ -42,6 +45,13 @@ class MenuButtons{
       new NaviagationButton(MenuButtons.backButton, ctx)
     ]
   }
+
+  static generateTipButtons(ctx){
+    return [
+      new NaviagationButton(MenuButtons.turnOffTips, ctx)
+    ]
+  }
+
 }
 
 export default MenuButtons
