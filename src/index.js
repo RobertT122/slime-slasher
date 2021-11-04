@@ -68,8 +68,7 @@ window.addEventListener("DOMContentLoaded", () =>{
     let docHeight = document.documentElement.scrollHeight;
     let aspectRatio = docWidth/docHeight;
     ctx.font = ("30px 'Press Start 2P'")
-    ctx.fillStyle = "grey"
-    console.log("hello")
+    ctx.fillStyle = "GhostWhite"
     if (docHeight > 1080 && aspectRatio > 13/16){
       ctx.fillText("Hi-Rez", 320, 1400)
     }else if (aspectRatio > 13/16){
