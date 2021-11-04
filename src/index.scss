@@ -1,26 +1,26 @@
 @import url("styles/reset.scss");
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-@media (min-aspect-ratio: 3/4) and (max-height: 1080px){
+@media (min-aspect-ratio: 6/5) and (max-height: 1080px){
   //standard display
   #canvas1 {
     max-width: 600px;
   }
 }
-@media (min-aspect-ratio: 3/4) and (min-height: 1080px){
+@media (min-aspect-ratio: 6/5) and (min-height: 1080px){
   #canvas1 {
     //high resolution display
     max-width: 800px;
   }
 }
 
-@media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+@media (min-aspect-ratio: 5/8) and (max-aspect-ratio: 3/4) {
   //tablet portrait
   #canvas1 {
     width: 80%;
   }
 }
-@media (max-aspect-ratio: 9/16){
+@media (max-aspect-ratio: 5/8){
   //phone portrait
   #canvas1 {
     width: 100%;
