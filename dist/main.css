@@ -56,31 +56,28 @@ table {
 /*!*****************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss (1) ***!
   \*****************************************************************************************************************************************/
-@media (min-aspect-ratio: 6/5) and (max-height: 1080px) {
+@media (min-aspect-ratio: 13/16) and (max-height: 1080px) {
   #canvas1 {
     max-width: 600px;
   }
 }
-@media (min-aspect-ratio: 6/5) and (min-height: 1080px) {
+@media (min-aspect-ratio: 13/16) and (min-height: 1080px) {
   #canvas1 {
     max-width: 800px;
   }
 }
-@media (min-aspect-ratio: 5/8) and (max-aspect-ratio: 3/4) {
+@media (min-aspect-ratio: 5/8) and (max-aspect-ratio: 13/16) {
   #canvas1 {
     width: 80%;
+    height: 80%;
   }
 }
 @media (max-aspect-ratio: 5/8) {
   #canvas1 {
     width: 100%;
+    height: 100%;
   }
 }
-#canvas {
-  max-width: 800px;
-  height: auto;
-}
-
 #game-box {
   display: flex;
   justify-content: center;

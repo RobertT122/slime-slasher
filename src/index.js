@@ -22,12 +22,12 @@ window.addEventListener("DOMContentLoaded", () =>{
     let aspectRatio = docWidth/docHeight;
     let x = event.pageX;
     let y = event.pageY;
-    if (docHeight > 1080 && aspectRatio > 5/6){
+    if (docHeight > 1080 && aspectRatio > 13/16){
       console.log("hi-rez")
       //working
       let margin = (docWidth-800)/2
       x -= margin;
-    }else if (aspectRatio > 5/6){
+    }else if (aspectRatio > 13/16){
       // console.log("window");
       //working
       let margin = (800/600)*(docWidth-600)/2
@@ -68,16 +68,16 @@ window.addEventListener("DOMContentLoaded", () =>{
     let docHeight = document.documentElement.scrollHeight;
     let aspectRatio = docWidth/docHeight;
     ctx.font = ("30px 'Press Start 2P'")
-    ctx.fillStyle = "black"
+    ctx.fillStyle = "grey"
     console.log("hello")
-    if (docHeight > 1080 && aspectRatio > 3/4){
+    if (docHeight > 1080 && aspectRatio > 13/16){
       ctx.fillText("Hi-Rez", 320, 1400)
-    }else if (aspectRatio > 5/6){
+    }else if (aspectRatio > 13/16){
       ctx.fillText("Window/Landscape", 200, 1400)
-    }else if (aspectRatio >5/8){
+    }else if (aspectRatio > 5/8){
       ctx.fillText("Tablet", 320, 1400)
     }else{
-      ctx.fillText("Mobile", 400, 1400)
+      ctx.fillText("Mobile", 320, 1400)
     }
 
 
