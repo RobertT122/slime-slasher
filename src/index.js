@@ -23,12 +23,12 @@ window.addEventListener("DOMContentLoaded", () =>{
     let x = event.pageX;
     let y = event.pageY;
     if (docHeight > 1080 && aspectRatio > 3/4){
-      // console.log("hi-rez")
+      console.log("hi-rez")
       //working
       let margin = (docWidth-800)/2
       x -= margin;
     }else if (aspectRatio > 3/4){
-      // console.log("window");
+      console.log("window");
       //working
       let margin = (800/600)*(docWidth-600)/2
       let scaler = 800/600;
@@ -37,13 +37,13 @@ window.addEventListener("DOMContentLoaded", () =>{
       console.log(`x:${x}, y:${y}`)
     }else if (aspectRatio >9/16){
       //working
-      // console.log("ipad")
+      console.log("ipad")
       let margin = (docWidth*.1)
       let scaler= (800)/(docWidth*.8);
       x = Math.round(scaler * x) - margin;
       y = Math.round(scaler * y);
     }else{
-      // console.log("mobile")
+      console.log("mobile")
       //working
       let scaler= 800/docWidth;
       x = Math.round(scaler * x);
