@@ -26,7 +26,7 @@ class ToggleCB{
     this.size = [140,260]
     this.image = new Image()
     this.image.src = "src/assets/sprites/Switch-Sheet.png"
-    this.toggled = 0;
+    this.toggled = 1;
   }
 
   render(){

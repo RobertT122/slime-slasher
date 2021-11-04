@@ -8,23 +8,23 @@ import ToolButtons from './tool_buttons.js';
 //handle game logic and interactions between classes
 
 class Game {
-  constructor(ctx) {
-    this.toggleColor = false;
+  constructor(ctx, frameRate) {
+  this.frameRate = frameRate;
+  this.toggleColor = false;
     this.ctx = ctx
     this.lifeTotal = 3
     this.player = new Player(this.lifeTotal,ctx);
     this.timeLimit = this.player.timeLimit;
-    this.currentTimer = new Timer(this.timeLimit, ctx);
+    this.currentTimer = new Timer(this.timeLimit, ctx, frameRate);
     this.currentEnemy = Enemy.generateNewEnemy(ctx);
 
     this.attackButtons = new AttackButtons(ctx);
     this.toolButtons = new ToolButtons(ctx);
     //0: MainMenu, 1: GameBoard, -1:GameOver, 2:Tips
-    this.gameState = 2;
+    this.gameState = 0;
     this.screenElements = this.getScreenElements(this.gameState);
     this.background = this.setBackground(this.gameState);
     this.globalFrame = 0;
-    console.log(this.toolButtons)
   }
 
   incrementFrame(){
@@ -57,20 +57,20 @@ class Game {
   resetTimer(){
     this.currentTimer.finishEarly();
     // this.timeLimit = this.player.timeLimit
-    this.currentTimer = new Timer(this.timeLimit, this.ctx);
+    this.currentTimer = new Timer(this.timeLimit, this.ctx, this.frameRate);
   }
 
   resetEnemy(){
     this.currentEnemy = Enemy.generateNewEnemy(this.ctx);
   }
     
-  render(frameRate){
+  render(){
     this.incrementFrame();
     this.renderBackground();
     switch(this.gameState){
       case 1:
         this.checkGameEnd();
-        this.renderGameScreen(frameRate);
+        this.renderGameScreen();
         break;
       case -1:
         this.renderGameOver();
@@ -88,11 +88,11 @@ class Game {
     this.ctx.drawImage(this.background, 0,0)
   }
 
-  renderGameScreen(frameRate){
+  renderGameScreen(){
     this.resolveTimer();
     this.resolveAttack();
     this.currentEnemy.render();
-    this.currentTimer.render(frameRate);
+    this.currentTimer.render();
     this.player.render();
     this.attackButtons.render();
   }
@@ -107,6 +107,19 @@ class Game {
   renderMainMenu(){
     this.toolButtons.render();
     this.renderStartButton();
+    let title =  new Image ();
+    title.src = 'src/assets/sprites/Title-Sheet.png'
+    let currentFrame = this.globalFrame%8
+    if(currentFrame === 0 || currentFrame === 7){
+      this.ctx.drawImage(title, 140, 200)
+    } else if(currentFrame === 1 || currentFrame === 6){
+        this.ctx.drawImage(title, 140, 205)
+    } else if(currentFrame === 2 || currentFrame === 5){
+      this.ctx.drawImage(title, 140, 210)
+    } else if(currentFrame === 3 || currentFrame === 4){
+      this.ctx.drawImage(title, 140, 215)
+    }
+    
   }
 
   renderTips(){
@@ -134,7 +147,7 @@ class Game {
         this.player.takeDamage();
       } else {
         this.player.updateLog(this.currentEnemy);
-        this.player.addGold();
+        this.player.addGold(this.player.currentLevel);
       }
       // increment level when the player is still alive
       if(this.player.hearts > 0){
@@ -156,7 +169,7 @@ class Game {
     if(this.currentEnemy.enemyState === -1){
       let bonus = this.currentTimer.finishEarly();
       if (bonus){
-        this.player.gold += bonus;
+        this.player.addGold(bonus);
       }
     } else if(this.currentEnemy.enemyState){
       this.currentTimer.paused = true;
@@ -228,7 +241,7 @@ class Game {
     this.lifeTotal = 3
     this.player.softReset(this.lifeTotal);
     this.timeLimit = this.player.timeLimit;
-    this.currentTimer = new Timer(this.timeLimit, this.ctx);
+    this.currentTimer = new Timer(this.timeLimit, this.ctx, this.frameRate);
     this.currentEnemy = Enemy.generateNewEnemy(this.ctx);
     this.attackButtons.resetClicked();
   }
@@ -284,7 +297,7 @@ class Game {
     this.ctx.drawImage(green, ((localFrame+1)%4)*320, 320, 320, 320, 330, 690, 160, 160)
   }
 
-  static tips = " Your goal is to defeat\n slimes before the time\n  runs out. You do this\nby attacking slimes with\nthe counter to their type: \n\n\n\n\n\n\n\nBe sure to watch the time,\nyou get less as your level \nincreases! Run out of time\nor choose the wrong counter\nand you will be damaged! \n You start with 3 Lives"
+  static tips = " Your goal is to defeat\n slimes before the time\n  runs out. You do this\nby attacking slimes with\nthe counter to their type: \n\n\n\n\n\n\n\nBe sure to watch the time,\nyou get less as your level \nincreases! Run out of time\nor choose the wrong counter\n and you will be damaged! \n   3 hits and you Lose!"
 
 
 }

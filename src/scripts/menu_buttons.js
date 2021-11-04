@@ -13,12 +13,14 @@ class NaviagationButton{
     // this.ctx.stroke();
     game.redirect(this.gameState);
   }
-
+  
 }
 
 
 
+
 class MenuButtons{
+
 
   static backButton = {gameState: 0, pos:[10,30], size:[270,140]}
   static playButton = {gameState: 1, pos:[180,540], size:[440,160]}
@@ -53,5 +55,6 @@ class MenuButtons{
   }
 
 }
+
 
 export default MenuButtons

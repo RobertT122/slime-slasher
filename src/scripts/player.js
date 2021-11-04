@@ -4,6 +4,7 @@ class Player {
     this.ctx = ctx;
     this.currentLevel = 1;
     this.gold = 0;
+    this.bank = 0;
     this.hearts = hearts;
 
     this.attacked = false;
@@ -15,6 +16,7 @@ class Player {
   }
 
   render(){
+    this.incrementFrame();
     this.ctx.fillStyle = "black"
     this.ctx.font = ("50px 'Press Start 2P'")
     this.renderHearts();
@@ -38,8 +40,8 @@ class Player {
     this.attacked = true;
   }
 
-  addGold(){
-    this.gold += this.currentLevel;
+  addGold(gold){
+    this.bank += gold;
   }
 
   updateLog(enemy){
@@ -68,6 +70,15 @@ class Player {
   }
 
   renderGold() {
+    if(this.bank > 0){
+      if(this.bank > 50){
+        this.gold++
+        this.bank--
+      } else if(this.localFrameCount%2 === 0){
+        this.gold++
+        this.bank--
+      }
+    }
     this.ctx.font = ("30px 'Press Start 2P'")
     this.ctx.fillText(`GP:${this.gold < 10? " ": ""}${this.gold}`, 600, 770)
   }
@@ -113,6 +124,8 @@ class Player {
           renderScore(){
     this.ctx.font = ("50px 'Press Start 2P'")
     this.ctx.fillText(`Score: ${this.score}`, 100, 800)
+    this.gold += this.bank;
+    this.bank = 0;
     let goldLeft = this.gold - this.score;
     if (this.score < this.gold){
       if (goldLeft > 2000){
@@ -157,6 +170,7 @@ class Player {
     this.timeLimit = 15
     this.currentLevel = 1;
     this.gold = 0;
+    this.bank = 0;
     this.hearts = lifeTotal;
     this.log = {};
   }

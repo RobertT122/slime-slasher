@@ -1,18 +1,18 @@
 class Timer {
-  constructor(startTime, ctx) {
+  constructor(startTime, ctx, frameRate) {
     this.time = startTime;
     this.paused = false;
     this.ctx = ctx;
-    this.frameConversion = undefined;
+    this.frameConversion = frameRate/1000;
     this.secondFraction = 0;
     this.renderPos = [340, 350]
   }
   
-  render(frameRate){
-    this.frameConversion = this.frameConversion || frameRate/1000
+  render(){
     this.isDone();
     this.ctx.font=("50px 'Press Start 2P'")
     this.ctx.fillText(this.timeString(), this.renderPos[0], this.renderPos[1])
+    // console.log(this.time)
   }
 
   isDone(){
