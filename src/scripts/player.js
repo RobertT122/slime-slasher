@@ -170,6 +170,7 @@ class Player {
     this.timeLimit = 15
     this.currentLevel = 1;
     this.gold = 0;
+    this.score = 0;
     this.bank = 0;
     this.hearts = lifeTotal;
     this.log = {};
