@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", () =>{
       let margin = (docWidth*.1)
       let scaler= (800)/(docWidth*.8);
       x = Math.round(scaler * x) - margin;
-      y = Math.round(scaler * y);
+      y = Math.round(scaler * y) - margin;
     }else{
       // console.log("mobile")
       //working
