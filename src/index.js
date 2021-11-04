@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () =>{
       let margin = (docWidth-800)/2
       x -= margin;
     }else if (aspectRatio > 3/4){
-      console.log("window");
+      // console.log("window");
       //working
       let margin = (800/600)*(docWidth-600)/2
       let scaler = 800/600;
@@ -37,13 +37,13 @@ window.addEventListener("DOMContentLoaded", () =>{
       console.log(`x:${x}, y:${y}`)
     }else if (aspectRatio >9/16){
       //working
-      console.log("ipad")
+      // console.log("ipad")
       let margin = (docWidth*.1)
       let scaler= (800)/(docWidth*.8);
       x = Math.round(scaler * x) - margin;
       y = Math.round(scaler * y);
     }else{
-      console.log("mobile")
+      // console.log("mobile")
       //working
       let scaler= 800/docWidth;
       x = Math.round(scaler * x);
@@ -62,6 +62,25 @@ window.addEventListener("DOMContentLoaded", () =>{
     } else{
       body.classList.remove("grey-background")
     }
+
+    //Device Guesser:
+    let docWidth = document.documentElement.scrollWidth;
+    let docHeight = document.documentElement.scrollHeight;
+    let aspectRatio = docWidth/docHeight;
+    ctx.font = ("30px 'Press Start 2P'")
+    ctx.fillStyle = "black"
+    console.log("hello")
+    if (docHeight > 1080 && aspectRatio > 3/4){
+      ctx.fillText("Hi-Rez", 320, 1400)
+    }else if (aspectRatio > 3/4){
+      ctx.fillText("Window/Landscape", 200, 1400)
+    }else if (aspectRatio >9/16){
+      ctx.fillText("Tablet", 320, 1400)
+    }else{
+      ctx.fillText("Mobile", 320, 1400)
+    }
+
+
   }, frameRate)
   
 })
