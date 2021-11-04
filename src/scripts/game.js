@@ -23,7 +23,7 @@ class Game {
     this.attackButtons = new AttackButtons(ctx);
     this.toolButtons = new ToolButtons(ctx);
     //0: MainMenu, 1: GameBoard, -1:GameOver, 2:Tips
-    this.gameState = -1;
+    this.gameState = 2;
     this.screenElements = this.getScreenElements(this.gameState);
     this.background = this.setBackground(this.gameState);
     this.globalFrame = 0;
@@ -87,7 +87,14 @@ class Game {
 
 
   renderBackground(){
-    if(this.gameState === -1) this.coins.render()
+    if(this.gameState === -1) {
+      if(this.player.score >= this.player.gold){
+        this.coins.stop();
+      } else{
+        this.coins.go();
+      }
+      this.coins.render()
+    }
     this.ctx.drawImage(this.background, 0,0)
   }
 

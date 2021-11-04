@@ -13,7 +13,6 @@ class Coin{
 
   render(){
     let frameId = ((Math.floor(this.localFrame/2) + this.frameOffset)%4)
-    console.log(frameId)
     this.ctx.drawImage(this.image, frameId*this.size[0], 0, 
     this.size[0], this.size[1], this.pos[0], this.pos[1], this.size[0]/2, this.size[1]/2)
     this.updatePos()
@@ -33,7 +32,7 @@ class Coin{
 class Coins{
   constructor(ctx){
     this.ctx = ctx
-    this.generationSpeed = 10;
+    this.generationSpeed = 3;
     this.coins = [];
     this.localFrame = 0;
   }
@@ -48,8 +47,23 @@ class Coins{
     this.coins = this.coins.filter(coin => coin.pos[1] < 1420)
     this.coins.forEach(coin => coin.render())
     this.updateFrame();
+    this.playing = true;
   }
 
+  
+  createCoin(){
+    if(this.playing){
+      this.coins.push(new Coin(Coins.randomPos(), Coins.randomSpeed(), this.ctx))
+    }
+  }
+
+  stop(){
+    this.playing = false;
+  }
+  go(){
+    this.playing = true;
+  }
+  
   static randomSpeed(){
     return [0,20*Math.random()+10]
   }
@@ -57,11 +71,6 @@ class Coins{
   static randomPos(){
     return [Math.random()*800, 0]
   }
-
-  createCoin(){
-    this.coins.push(new Coin(Coins.randomPos(), Coins.randomSpeed(), this.ctx))
-  }
-
 
 
 }
