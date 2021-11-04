@@ -4,6 +4,7 @@ import Timer from './timer.js';
 import AttackButtons from './attack_button.js'
 import MenuButtons from './menu_buttons.js';
 import ToolButtons from './tool_buttons.js';
+import Coins from './coin.js';
 
 //handle game logic and interactions between classes
 
@@ -18,10 +19,11 @@ class Game {
     this.currentTimer = new Timer(this.timeLimit, ctx, frameRate);
     this.currentEnemy = Enemy.generateNewEnemy(ctx);
 
+    this.coins = new Coins(ctx)
     this.attackButtons = new AttackButtons(ctx);
     this.toolButtons = new ToolButtons(ctx);
     //0: MainMenu, 1: GameBoard, -1:GameOver, 2:Tips
-    this.gameState = 0;
+    this.gameState = -1;
     this.screenElements = this.getScreenElements(this.gameState);
     this.background = this.setBackground(this.gameState);
     this.globalFrame = 0;
@@ -85,6 +87,7 @@ class Game {
 
 
   renderBackground(){
+    if(this.gameState === -1) this.coins.render()
     this.ctx.drawImage(this.background, 0,0)
   }
 
