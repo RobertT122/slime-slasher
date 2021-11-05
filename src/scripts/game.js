@@ -307,7 +307,7 @@ class Game {
     this.ctx.drawImage(green, ((localFrame+1)%4)*320, 320, 320, 320, 330, 690, 160, 160)
   }
 
-  static tips = " Your goal is to defeat\n slimes before the time\n  runs out. You do this\nby attacking slimes with\nthe counter to their type: \n\n\n\n\n\n\n\nBe sure to watch the time,\nyou get less as your level \nincreases! Run out of time\nor choose the wrong counter\n and you will be damaged! \n   3 hits and you Lose!"
+  static tips = " Your goal is to defeat\nthe slimes before the time\n  runs out. You do this\nby attacking slimes with\nthe counter to their color: \n\n\n\n\n\n\n\nBe sure to watch the time,\nyou get less as your level \nincreases! Run out of time\nor choose the wrong counter\n and you will be damaged! \n   3 hits and you Lose!"
 
 
 }

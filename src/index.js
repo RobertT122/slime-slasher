@@ -57,7 +57,6 @@ window.addEventListener("DOMContentLoaded", () =>{
   setInterval(function(){
     incrementFrame()
     ctx.clearRect(0,0, canvas.width, canvas.height);
-    ctx.fillStyle = "black"
     game.render(frameCount, frameRate);
     if (game.toggleColor){
       altColorMode(canvas, ctx);
@@ -74,14 +73,23 @@ window.addEventListener("DOMContentLoaded", () =>{
     ctx.fillStyle = "GhostWhite"
     if (docHeight > 1080 && aspectRatio > 13/16){
       ctx.fillText("Hi-Rez", 320, 1400)
+      ctx.fillStyle = "grey"
+      ctx.font = ("15px 'Press Start 2P'")
+      ctx.fillText("Best Played on Mobile Device", 200, 1360)
     }else if (aspectRatio > 13/16){
       ctx.fillText("Window/Landscape", 200, 1400)
+      ctx.fillStyle = "grey"
+      ctx.font = ("15px 'Press Start 2P'")
+      ctx.fillText("Best Played on Mobile Device", 200, 1360)
     }else if (aspectRatio > 5/8){
       ctx.fillText("Tablet", 320, 1400)
+      ctx.fillStyle = "grey"
+      ctx.font = ("15px 'Press Start 2P'")
+      ctx.fillText("Best Played on Mobile Device", 200, 1360)
     }else{
       ctx.fillText("Mobile", 320, 1400)
     }
-
+    ctx.fillStyle = "black"
 
   }, frameRate)
   
