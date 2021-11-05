@@ -1,4 +1,7 @@
 # Slime Slasher
+https://robertt122.github.io/slime-slasher/
+
+*Best played on mobile device* 
 ## Background
 
 Slime Slasher is a simple dexterity game where the player must choose the correct attack to defeat the enemy in a limited time. It has the astethic of a turn-based jrpg (Pokemon-like for the uninitiated). Here is an example of the gameplay loop: 
