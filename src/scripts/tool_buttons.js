@@ -15,7 +15,11 @@ class GitHubButton{
   click(game){
     this.pressed = 0;
     //sends the user to my github page
-    window.location.href = "https://github.com/RobertT122"
+    // window.location.href = "https://github.com/RobertT122"
+    window.open(
+      'https://github.com/RobertT122',
+      '_blank' // <- This is what makes it open in a new window.
+    );
   }
 }
 
