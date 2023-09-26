@@ -22,12 +22,12 @@ window.addEventListener("DOMContentLoaded", () =>{
     let aspectRatio = docWidth/docHeight;
     let x = event.pageX;
     let y = event.pageY;
-    if (docHeight > 1080 && aspectRatio > 5/8){
+    if (docHeight > 1080 && aspectRatio > 9/16){
       console.log("hi-rez")
       //working
       let margin = (docWidth-800)/2
       x -= margin;
-    }else if (aspectRatio > 5/8){
+    }else if (aspectRatio > 9/16){
       console.log("window");
       //working
       let margin = (800/600)*(docWidth-600)/2
@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", () =>{
       y = Math.round(scaler * y);
       console.log(`x:${x}, y:${y}`)
     }
-    // else if (aspectRatio >5/8){
+    // else if (aspectRatio >9/16){
     //   //working
     //   // console.log("ipad")
     //   let margin = (docWidth*.1)
@@ -81,7 +81,7 @@ window.addEventListener("DOMContentLoaded", () =>{
       ctx.fillStyle = "grey"
       ctx.font = ("15px 'Press Start 2P'")
       ctx.fillText("Best Played on Mobile Device", 200, 1360)
-    }else if (aspectRatio > 5/8){
+    }else if (aspectRatio > 9/16){
       ctx.fillText("Tablet", 320, 1400)
       ctx.fillStyle = "grey"
       ctx.font = ("15px 'Press Start 2P'")

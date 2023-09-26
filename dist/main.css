@@ -1,10 +1,4 @@
-/*!*************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
-  \*************************************************************************************************************************************/
 @import url(https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
-/*!*****************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./src/styles/reset.scss ***!
-  \*****************************************************************************************************/
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -53,32 +47,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/*!*****************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss (1) ***!
-  \*****************************************************************************************************************************************/
-@media (min-aspect-ratio: 5/8) and (max-height: 1080px) {
-  #canvas1 {
-    width: 100%;
-    max-width: 600px;
-  }
-}
-@media (min-aspect-ratio: 5/8) and (min-height: 1080px) {
-  #canvas1 {
-    width: 100%;
-    max-width: 800px;
-  }
-}
-@media (max-aspect-ratio: 5/8) {
-  #canvas1 {
-    width: 100%;
-    height: 100%;
-  }
-}
-#game-box {
-  display: flex;
-  justify-content: center;
-}
+html{scroll-snap-type:y mandatory}@media(min-aspect-ratio: 9/16)and (max-height: 1080px){#canvas1{width:100%;max-width:600px}}@media(min-aspect-ratio: 9/16)and (min-height: 1080px){#canvas1{width:100%;max-width:800px}}@media(max-aspect-ratio: 9/16){#canvas1{width:100%;height:100%}}#game-box{display:flex;justify-content:center}.grey-background{background-color:#d3d3d3}
 
-.grey-background {
-  background-color: lightgrey;
-}
+/*# sourceMappingURL=main.css.map*/
